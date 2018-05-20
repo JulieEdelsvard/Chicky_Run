@@ -28,6 +28,10 @@ create: function () {
 
 		game.world.setBounds(0, 0, 2000, 800);
 
+    music = game.add.audio('level1', 1, true);
+    music.loop = true;
+    music.play();
+
     //  Parallax background, sky fixed to camera
 		var sky = game.add.image(0, 0, 'sky');
 		sky.fixedToCamera = true;
@@ -187,15 +191,13 @@ update: function () {
     game.physics.arcade.collide(spikys, platforms);
 
 		//  Checks to see if the player collide with any of the spiky monsters, if he does call the gameOver function
-		// game.physics.arcade.collide(player, spikys, gameOver, null, this);
+		game.physics.arcade.collide(player, spikys, gameOver, null, this);
 
     //  Collide the player and the lock
-    // game.physics.arcade.collide(player, ground);
-    // game.physics.arcade.collide(player, platforms);
     // game.physics.arcade.collide(lock, ground);
     // game.physics.arcade.collide(lock, platforms);
 
-    //  Checks to see if the player collide with the lock, if he does call the win function
+     // Checks to see if the player collide with the lock, if he does call the win function
 		// game.physics.arcade.collide(player, lock, win, null, this);
 
     //  Reset the players velocity (movement)

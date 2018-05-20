@@ -12,10 +12,12 @@ var loadState = {
   		game.load.image('platform4', 'assets/platform4.png');
   		game.load.image('platform5', 'assets/platform5.png');
       game.load.image('star', 'assets/star.png');
-      game.load.image('lock', 'assets/lock_yellow.png');
-      game.load.image('key', 'assets/keyYellow.png');  
+      game.load.image('lock', 'assets/lockYellow.png');
+      game.load.image('key', 'assets/keyYellow.png');
       game.load.image('spiky', 'assets/spiky-monster.png', 35, 40);
       game.load.spritesheet('chicken', 'assets/chicken.png', 108, 115);
+
+      game.load.audio('level1', 'assets/level1.mp3');
 
   },
 
