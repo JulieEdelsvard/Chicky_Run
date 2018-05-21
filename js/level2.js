@@ -1,4 +1,3 @@
-
 var win;
 var player;
 var chicken;
@@ -21,7 +20,7 @@ var lifeLostText;
 var keyIcon;
 
 
-var playState = {
+var level2state = {
 
 create: function () {
 
@@ -39,10 +38,14 @@ create: function () {
 // }
 
     //  Parallax background(sky and mountain), sky fixed to camera
-		var sky = game.add.image(0, 0, 'sky');
-		sky.fixedToCamera = true;
-
-		game.add.image(0, 0, 'mountain');
+		// var background = game.add.image(0, 0, 'background');
+		// game.add.image(0, 0, 'sun');
+    // game.add.image(0, 0, 'mountains');
+    // game.add.image(0, 0, 'layer4');
+    // game.add.image(0, 0, 'layer3');
+    // game.add.image(0, 0, 'layer2');
+    // game.add.image(0, 0, 'layer1');
+    var background = game.add.image(0, 0, 'desert');
 
     //  The platforms group contains the ground and the 2 ledges
     platforms = game.add.group();
@@ -51,7 +54,7 @@ create: function () {
     platforms.enableBody = true;
 
     // Create the ground.
-    var ground = platforms.create(0, game.world.height - 70, 'ground');
+    var ground = platforms.create(0, game.world.height - 70, 'desertPlatform1');
 
     //  Scale it to fit the width of the game
     ground.scale.setTo(1, 1);
@@ -63,13 +66,13 @@ create: function () {
     var ledge = platforms.create(400, 550, 'platform1');
     ledge.body.immovable = true;
 
-    ledge = platforms.create(-150, 350, 'platform2');
+    ledge = platforms.create(-150, 350, 'desertPlatform1');
     ledge.body.immovable = true;
 
-		ledge = platforms.create(500, 200, 'platform2');
+		ledge = platforms.create(500, 200, 'desertPlatform2');
     ledge.body.immovable = true;
 
-		ledge = platforms.create(1200, 550, 'platform4');
+		ledge = platforms.create(1200, 550, 'desertPlatform3');
     ledge.body.immovable = true;
 
 		ledge = platforms.create(1400, 400, 'platform3');
@@ -195,7 +198,7 @@ create: function () {
       // Create the key
       keys = game.add.group();
       keys.enableBody = true;
-      var key = keys.create(800, 300, 'key')
+      var key = keys.create(800, 50, 'key')
       key.anchor.set(0.5, 0.5);
       this.game.physics.enable(key);
       key.body.allowGravity = false;
@@ -326,17 +329,17 @@ collectKey: function (player, key) {
     this.hasKey = true;
 
     // Create key icon when player has collected key
-  if (this.hasKey = true) {
-    console.log('working');
-    keyIcons = game.add.group();
-    var keyIcon = keyIcons.create(300, 40, 'key');
-    keyIcon.anchor.set(0, 0.5);
+    if (this.hasKey = true) {
 
-    keyIcon.fixedToCamera = true;
-    keyIcon.cameraOffset.setTo(300, 40);
-  } else {
+      keyIcons = game.add.group();
+      var keyIcon = keyIcons.create(300, 40, 'key');
+      keyIcon.anchor.set(0, 0.5);
 
-  }
+      keyIcon.fixedToCamera = true;
+      keyIcon.cameraOffset.setTo(300, 40);
+    } else {
+
+    }
 },
 
 win: function (player, lock) {
@@ -371,12 +374,6 @@ gameOver: function (player, spiky) {
         game.state.start('gameOver');
       }
 }
-
-// function render() {
-//
-// 		// game.debug.spriteCoords(player, 32, 800)
-//
-// }
 
 
 };

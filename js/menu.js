@@ -20,7 +20,7 @@ var menuState = {
   // The start function calls the play state
   start: function () {
 
-    game.state.start('play');
+    game.state.start('level1');
 
   }
 };
