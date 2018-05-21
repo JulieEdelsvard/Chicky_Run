@@ -18,6 +18,7 @@ var loadState = {
       game.load.spritesheet('chicken', 'assets/chicken.png', 108, 115);
 
       game.load.audio('level1', 'assets/level1.mp3');
+      game.load.audio('jump', 'assets/jump.mp3');
 
   },
 
