@@ -29,7 +29,7 @@ create: function () {
 		game.world.setBounds(0, 0, 2000, 800);
 
     // Add background music
-    music = game.add.audio('level1', 1, true);
+    music = game.add.audio('level2', 1, true);
     music.loop = true;
     music.play();
 
@@ -190,7 +190,7 @@ create: function () {
       // Create the locker
       locks = game.add.group();
       locks.enableBody = true;
-      var lock = locks.create(1920, 130, 'lock')
+      var lock = locks.create(1920, 130, 'lock2')
       lock.anchor.set(0, 0.3);
       this.game.physics.enable(locks);
       lock.body.allowGravity = false;
@@ -198,7 +198,7 @@ create: function () {
       // Create the key
       keys = game.add.group();
       keys.enableBody = true;
-      var key = keys.create(800, 50, 'key')
+      var key = keys.create(800, 50, 'key2')
       key.anchor.set(0.5, 0.5);
       this.game.physics.enable(key);
       key.body.allowGravity = false;
@@ -332,7 +332,7 @@ collectKey: function (player, key) {
     if (this.hasKey = true) {
 
       keyIcons = game.add.group();
-      var keyIcon = keyIcons.create(300, 40, 'key');
+      var keyIcon = keyIcons.create(300, 40, 'key2');
       keyIcon.anchor.set(0, 0.5);
 
       keyIcon.fixedToCamera = true;

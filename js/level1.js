@@ -187,7 +187,7 @@ create: function () {
       // Create the locker
       locks = game.add.group();
       locks.enableBody = true;
-      var lock = locks.create(1920, 130, 'lock')
+      var lock = locks.create(1920, 130, 'lock1')
       lock.anchor.set(0, 0.3);
       this.game.physics.enable(locks);
       lock.body.allowGravity = false;
@@ -195,7 +195,7 @@ create: function () {
       // Create the key
       keys = game.add.group();
       keys.enableBody = true;
-      var key = keys.create(800, 50, 'key')
+      var key = keys.create(800, 50, 'key1')
       key.anchor.set(0.5, 0.5);
       this.game.physics.enable(key);
       key.body.allowGravity = false;
@@ -329,7 +329,7 @@ collectKey: function (player, key) {
     if (this.hasKey = true) {
 
       keyIcons = game.add.group();
-      var keyIcon = keyIcons.create(300, 40, 'key');
+      var keyIcon = keyIcons.create(300, 40, 'key1');
       keyIcon.anchor.set(0, 0.5);
 
       keyIcon.fixedToCamera = true;
