@@ -18,6 +18,7 @@ var scoreText;
 var lives = 3;
 var livesText;
 var lifeLostText;
+var keyIcon;
 
 
 var playState = {
@@ -136,11 +137,10 @@ create: function () {
 
     // Lives text fixed to camera
 		livesText.fixedToCamera = true;
-    livesText.cameraOffset.setTo(300, 20);
+    livesText.cameraOffset.setTo(270, 20);
 
 			//registration point for camera
 		 player.anchor.setTo(5, 1);
-
 		 game.camera.follow(player, 200, 1, 1);
 
 
@@ -238,7 +238,6 @@ update: function () {
 
     // Checks to see if the player collide with the lock, has the key and if he does call the win function
     if (this.hasKey && player.body.touching.down && hitPlatform) {
-      console.log('working');
       game.physics.arcade.overlap(player, locks, this.win, null, this);
     } else {
 
@@ -325,10 +324,24 @@ collectKey: function (player, key) {
 
     // The player now has the key
     this.hasKey = true;
-    console.log('has key');
+
+    // Create key icon when player has collected key
+  if (this.hasKey = true) {
+    console.log('working');
+    keyIcons = game.add.group();
+    var keyIcon = keyIcons.create(300, 40, 'key');
+    keyIcon.anchor.set(0, 0.5);
+
+    keyIcon.fixedToCamera = true;
+    keyIcon.cameraOffset.setTo(300, 40);
+  } else {
+
+  }
 },
 
 win: function (player, lock) {
+
+  game.sound.mute = true;
 
   game.state.start('win');
 },
@@ -353,6 +366,7 @@ gameOver: function (player, spiky) {
 
         lives = 3;
         score = 0;
+        game.sound.mute = true;
         // Run the game over loadState
         game.state.start('gameOver');
       }
