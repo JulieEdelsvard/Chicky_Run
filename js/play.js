@@ -20,7 +20,6 @@ var livesText;
 var lifeLostText;
 
 
-
 var playState = {
 
 create: function () {
@@ -185,15 +184,24 @@ create: function () {
 	        spiky.body.gravity.y = 300;
 			}
 
+      // Create the locker
       locks = game.add.group();
       locks.enableBody = true;
       var lock = locks.create(1920, 130, 'lock')
-      // this.locks.sendToBack();
+      lock.anchor.set(0, 0.3);
+      this.game.physics.enable(locks);
+      lock.body.allowGravity = false;
 
-
+      // Create the key
       keys = game.add.group();
       keys.enableBody = true;
       var key = keys.create(800, 300, 'key')
+      key.anchor.set(0.5, 0.5);
+      this.game.physics.enable(key);
+      key.body.allowGravity = false;
+
+      // Check if player has key
+      this.hasKey = false;
 
 
 },
@@ -228,8 +236,14 @@ update: function () {
     game.physics.arcade.collide(player, platforms);
     game.physics.arcade.collide(locks, platforms);
 
-     // Checks to see if the player collide with the lock, if he does call the win function
-		game.physics.arcade.overlap(player, locks, this.win, null, this);
+    // Checks to see if the player collide with the lock, has the key and if he does call the win function
+    if (this.hasKey && player.body.touching.down && hitPlatform) {
+      console.log('working');
+      game.physics.arcade.overlap(player, locks, this.win, null, this);
+    } else {
+
+    }
+
 
     //  Reset the players velocity (movement)
     player.body.velocity.x = 0;
@@ -308,6 +322,10 @@ collectKey: function (player, key) {
 
     // Remove the key
     key.kill();
+
+    // The player now has the key
+    this.hasKey = true;
+    console.log('has key');
 },
 
 win: function (player, lock) {
@@ -333,6 +351,8 @@ gameOver: function (player, spiky) {
 
       }  else {
 
+        lives = 3;
+        score = 0;
         // Run the game over loadState
         game.state.start('gameOver');
       }
