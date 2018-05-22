@@ -28,14 +28,18 @@ create: function () {
 
 		game.world.setBounds(0, 0, 2000, 800);
 
-    // Add background music
+    // Stop music from level 1
+    if (music && music.stop) {
+      music.stop();
+    }
+
+    // Add background music and loop it
     music = game.add.audio('level2', 1, true);
     music.loop = true;
+    music.onLoop.add(function () {
+      music.play();
+    })
     music.play();
-
-//     levelMusic: function() {
-//     this.music.play('', 0, 1, true);
-// }
 
     var background = game.add.image(0, 0, 'desert');
 
@@ -187,7 +191,7 @@ create: function () {
       // Create the key
       keys = game.add.group();
       keys.enableBody = true;
-      var key = keys.create(100, 100, 'key2')
+      var key = keys.create(50, 150, 'key2')
       key.anchor.set(0.5, 0.5);
       this.game.physics.enable(key);
       key.body.allowGravity = false;
@@ -338,9 +342,6 @@ collectKey: function (player, key) {
 
 win: function (player, lock) {
 
-  // Mute sound
-  game.sound.mute = true;
-
   // Run the win state
   game.state.start('win');
 },
@@ -363,8 +364,8 @@ gameOver: function (player, spiky) {
         lives = 3;
         score = 0;
 
-        // Mute sound
-        game.sound.mute = true;
+        // Turn off music
+        game.sound.destroy();
 
         // Run the game over state
         game.state.start('gameOver');

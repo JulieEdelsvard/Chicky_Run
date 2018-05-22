@@ -31,14 +31,13 @@ create: function () {
 		game.world.checkWorldBounds = true;
 
 
-    // Add background music
+    // Add background music and loop it
     music = game.add.audio('level1', 1, true);
     music.loop = true;
+    music.onLoop.add(function () {
+      music.play();
+    })
     music.play();
-
-//     levelMusic: function() {
-//     this.music.play('', 0, 1, true);
-// }
 
     //  Parallax background(sky and mountain), sky fixed to camera
 		var sky = game.add.image(0, 0, 'sky');
@@ -348,14 +347,14 @@ collectKey: function (player, key) {
 
 win: function (player, lock) {
 
-  // Mute the sound
-  game.sound.mute = true;
-
   // Run the level 2 state
   game.state.start('level2');
+
 },
 
 gameOver: function (player, spiky) {
+
+    // Mute the sound
 
     // Removes the player from the screen
     player.kill()
@@ -373,8 +372,7 @@ gameOver: function (player, spiky) {
         lives = 3;
         score = 0;
 
-        // Mute the sound
-        game.sound.mute = true;
+        game.sound.destroy();
 
         // Run the game over loadState
         game.state.start('gameOver');
