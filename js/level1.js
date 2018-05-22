@@ -123,7 +123,7 @@ create: function () {
     }
 
 		// Make the world bigger (maybe tweak this when your level grows)
-		game.world.resize(6000, 600)
+		game.world.resize(2000, 600)
 
     // Text style variable for multiple use
     textStyle = { font: '32px Arial', fill: 'white' };
@@ -137,7 +137,7 @@ create: function () {
 
     livesText = game.add.text(game.world.width-5, 5, 'Lives: '+lives, textStyle);
     livesText.anchor.set(1,0);
-  
+
     // Lives text fixed to camera
 		livesText.fixedToCamera = true;
     livesText.cameraOffset.setTo(270, 20);

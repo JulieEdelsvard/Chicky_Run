@@ -112,7 +112,7 @@ create: function () {
     }
 
 		// Make the world bigger (maybe tweak this when your level grows)
-		game.world.resize(6000, 600)
+		game.world.resize(0, 0, 2000, 600)
 
     // Text style variable for multiple use
     textStyle = { font: '32px Arial', fill: 'white' };
@@ -187,7 +187,7 @@ create: function () {
       // Create the key
       keys = game.add.group();
       keys.enableBody = true;
-      var key = keys.create(800, 50, 'key2')
+      var key = keys.create(100, 100, 'key2')
       key.anchor.set(0.5, 0.5);
       this.game.physics.enable(key);
       key.body.allowGravity = false;
