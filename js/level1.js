@@ -137,10 +137,7 @@ create: function () {
 
     livesText = game.add.text(game.world.width-5, 5, 'Lives: '+lives, textStyle);
     livesText.anchor.set(1,0);
-    lifeLostText = game.add.text(game.world.width*0.5, game.world.height*0.5, 'Life lost, click to continue', textStyle);
-    lifeLostText.anchor.set(0.5);
-    lifeLostText.visible = false;
-
+  
     // Lives text fixed to camera
 		livesText.fixedToCamera = true;
     livesText.cameraOffset.setTo(270, 20);
@@ -239,7 +236,6 @@ update: function () {
 		game.physics.arcade.collide(player, spikys, this.gameOver, null, this);
 
     if (player.body.position.y > game.world.height) {
-      console.log('working');
         this.gameOver(player, null);
     }
 
@@ -369,11 +365,7 @@ gameOver: function (player, spiky) {
 
     if (lives) {
         livesText.setText('Lives: '+lives);
-        lifeLostText.visible = true;
         player.reset(32, game.world.height - 300);
-        game.input.onDown.addOnce(function(){
-            lifeLostText.visible = false;
-        }, this);
 
       }  else {
 

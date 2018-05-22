@@ -24,9 +24,9 @@ var level2state = {
 
 create: function () {
 
-		// game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
-    //
-		// game.world.setBounds(0, 0, 2000, 800);
+		game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
+
+		game.world.setBounds(0, 0, 2000, 800);
 
     // Add background music
     music = game.add.audio('level2', 1, true);
@@ -37,14 +37,6 @@ create: function () {
 //     this.music.play('', 0, 1, true);
 // }
 
-    //  Parallax background(sky and mountain), sky fixed to camera
-		// var background = game.add.image(0, 0, 'background');
-		// game.add.image(0, 0, 'sun');
-    // game.add.image(0, 0, 'mountains');
-    // game.add.image(0, 0, 'layer4');
-    // game.add.image(0, 0, 'layer3');
-    // game.add.image(0, 0, 'layer2');
-    // game.add.image(0, 0, 'layer1');
     var background = game.add.image(0, 0, 'desert');
 
     //  The platforms group contains the ground and the 2 ledges
@@ -87,14 +79,14 @@ create: function () {
     //  Player physics
     game.physics.arcade.enable(player);
 
+    // turn off the player collision with the bottom of the world
+    game.physics.arcade.checkCollision.down = false;
+
     //  Player physics properties, bounce
     player.body.bounce.y = 0.2;
     player.body.gravity.y = 300;
     player.body.collideWorldBounds = true;
 		player.body.outOfBoundsKill = true;
-
-		// turn off the player collision with the bottom of the world
-    game.physics.arcade.checkCollision.down = false;
 
     //  Walking left and right.
     player.animations.add('left', [11, 6, 7], 10, true);
@@ -120,7 +112,7 @@ create: function () {
     }
 
 		// Make the world bigger (maybe tweak this when your level grows)
-		// game.world.resize(6000, 600)
+		game.world.resize(6000, 600)
 
     // Text style variable for multiple use
     textStyle = { font: '32px Arial', fill: 'white' };
@@ -134,9 +126,6 @@ create: function () {
 
     livesText = game.add.text(game.world.width-5, 5, 'Lives: '+lives, textStyle);
     livesText.anchor.set(1,0);
-    lifeLostText = game.add.text(game.world.width*0.5, game.world.height*0.5, 'Life lost, click to continue', textStyle);
-    lifeLostText.anchor.set(0.5);
-    lifeLostText.visible = false;
 
     // Lives text fixed to camera
 		livesText.fixedToCamera = true;
@@ -234,6 +223,10 @@ update: function () {
     //
 		// //  Checks to see if the player collide with any of the spiky monsters, if he does call the gameOver function
 		// game.physics.arcade.collide(player, spikys, this.gameOver, null, this);
+
+    if (player.body.position.y > game.world.height) {
+        this.gameOver(player, null);
+    }
 
      // Collide the player and the lock
     game.physics.arcade.collide(player, platforms);
@@ -362,11 +355,7 @@ gameOver: function (player, spiky) {
 
     if (lives) {
         livesText.setText('Lives: '+lives);
-        lifeLostText.visible = true;
         player.reset(32, game.world.height - 300);
-        game.input.onDown.addOnce(function(){
-            lifeLostText.visible = false;
-        }, this);
 
       }  else {
 
