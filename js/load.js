@@ -16,6 +16,10 @@ var loadState = {
   		game.load.image('desertPlatform3', 'assets/desertPlatform3.png');
       game.load.image('star', 'assets/star.png');
       game.load.image('spiky', 'assets/spiky-monster.png', 35, 40);
+      game.load.image('cactus1', 'assets/cactus1.png');
+      game.load.image('cactus2', 'assets/cactus2.png');
+      game.load.image('crate', 'assets/crate.png');
+      game.load.image('stone', 'assets/stone.png');
       game.load.spritesheet('chicken', 'assets/chicken.png', 108, 115);
       game.load.spritesheet('blueChicken', 'assets/bluechicken.png', 108, 115);
       game.load.image('lock1', 'assets/lockYellow.png');

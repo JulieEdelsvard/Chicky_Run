@@ -6,13 +6,13 @@ var menuState = {
     var nameLabel = game.add.text(80, 80, 'Chicky Run', { font: '50px Arial', fill: 'white'});
 
     // player instructions
-    var startLabel = game.add.text(80, game.world.height -80, 'press the "W" key to start', {font: '25px Arial', fill: 'white'});
+    var startLabel = game.add.text(80, game.world.height -80, 'press the "ENTER" key to start', {font: '25px Arial', fill: 'white'});
 
     // Definition of key function
-    var wkey = game.input.keyboard.addKey(Phaser.Keyboard.W);
+    var enterKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
 
     // When player press W, the play function gets called
-    wkey.onDown.addOnce(this.start, this);
+    enterKey.onDown.addOnce(this.start, this);
 
 
   },

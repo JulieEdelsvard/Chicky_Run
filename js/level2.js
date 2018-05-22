@@ -8,6 +8,7 @@ var stars;
 var spiky;
 var locks;
 var keys;
+var crate;
 var cursors;
 var scale;
 var speed = 4;
@@ -28,18 +29,18 @@ create: function () {
 
 		game.world.setBounds(0, 0, 2000, 800);
 
-    // Stop music from level 1
-    if (music && music.stop) {
-      music.stop();
-    }
-
-    // Add background music and loop it
-    music = game.add.audio('level2', 1, true);
-    music.loop = true;
-    music.onLoop.add(function () {
-      music.play();
-    })
-    music.play();
+    // // Stop music from level 1
+    // if (music && music.stop) {
+    //   music.stop();
+    // }
+    //
+    // // Add background music and loop it
+    // music = game.add.audio('level2', 1, true);
+    // music.loop = true;
+    // music.onLoop.add(function () {
+    //   music.play();
+    // })
+    // music.play();
 
     var background = game.add.image(0, 0, 'desert');
 
@@ -59,23 +60,42 @@ create: function () {
     ground.body.immovable = true;
 
     //  Create the ledges
-    var ledge = platforms.create(400, 550, 'desertPlatform2');
+    var ledge = platforms.create(400, 550, 'desertPlatform1');
     ledge.body.immovable = true;
 
     ledge = platforms.create(-150, 250, 'desertPlatform1');
     ledge.body.immovable = true;
 
-		ledge = platforms.create(500, 200, 'desertPlatform2');
+		ledge = platforms.create(600, 200, 'desertPlatform2');
     ledge.body.immovable = true;
 
-		ledge = platforms.create(1200, 550, 'desertPlatform3');
+		ledge = platforms.create(1500, 600, 'desertPlatform1');
     ledge.body.immovable = true;
 
-		ledge = platforms.create(1400, 400, 'desertPlatform3');
+		ledge = platforms.create(1420, 200, 'desertPlatform2');
     ledge.body.immovable = true;
 
-		ledge = platforms.create(1500, 200, 'desertPlatform2');
-    ledge.body.immovable = true;
+    // Create crates
+    crates = game.add.group();
+    crates.enableBody = true;
+    var crate = crates.create(1000, 400, 'crate');
+    crate.body.immovable = true;
+    crate = crates.create(1300, 400, 'crate');
+    crate.body.immovable = true;
+    crate = crates.create(1940, 450, 'crate');
+    crate.body.immovable = true;
+    crate = crates.create(1830, 300, 'crate');
+    crate.body.immovable = true;
+    crate = crates.create(450, 350, 'crate');
+    crate.body.immovable = true;
+
+    // Create the locker
+    locks = game.add.group();
+    locks.enableBody = true;
+    var lock = locks.create(1550, 150, 'lock2')
+    lock.anchor.set(0, 0.3);
+    this.game.physics.enable(locks);
+    lock.body.allowGravity = false;
 
     // Player settings
     player = game.add.sprite(0, 0, 'blueChicken');
@@ -164,29 +184,20 @@ create: function () {
 			    style = 'STYLE_TOPDOWN_TIGHT';
 			}
 
-			// // create spiky monsters
-			// spikys = game.add.group();
-      //
-			// //  Enable physics for spiky monster
-			// spikys.enableBody = true;
-      //
-			// //  create 4 evenly spaced apart
-			// for (var i = 0; i < 5; i++)
-			// {
-			// 		//  Create a spiky monster inside of the 'spiky' group
-			// 		var spiky = spikys.create(i * 600, 0, 'spiky');
-      //
-			// 		// //  Spiky gravity
-	    //     spiky.body.gravity.y = 300;
-			// }
+      // Create cactuses
+      cactus = game.add.group();
+      cactus.enableBody = true;
+      var cactus1 = cactus.create(770, 90, 'cactus1');
+      cactus1.body.immovable = true;
+      var cactus2 = cactus.create(670, 440, 'cactus1');
+      cactus2.body.immovable = true;
+      var cactus3 = cactus.create(5, 210, 'cactus2');
+      cactus3.body.immovable = true;
+      var cactus4 = cactus.create(1650, 555, 'cactus2');
+      cactus4.body.immovable = true;
+      var cactus5 = cactus.create(1420, 155, 'cactus2');
+      cactus5.body.immovable = true;
 
-      // Create the locker
-      locks = game.add.group();
-      locks.enableBody = true;
-      var lock = locks.create(1920, 130, 'lock2')
-      lock.anchor.set(0, 0.3);
-      this.game.physics.enable(locks);
-      lock.body.allowGravity = false;
 
       // Create the key
       keys = game.add.group();
@@ -220,13 +231,13 @@ update: function () {
     game.physics.arcade.collide(player, keys, this.collectKey, null, this);
 
 		// //  Collide the player and the spiky monster
-		// game.physics.arcade.collide(player, ground);
-    // game.physics.arcade.collide(player, platforms);
-		// game.physics.arcade.collide(spikys, ground);
-    // game.physics.arcade.collide(spikys, platforms);
-    //
+		game.physics.arcade.collide(player, ground);
+    game.physics.arcade.collide(player, platforms);
+		game.physics.arcade.collide(cactus, ground);
+    game.physics.arcade.collide(cactus, platforms);
+
 		// //  Checks to see if the player collide with any of the spiky monsters, if he does call the gameOver function
-		// game.physics.arcade.collide(player, spikys, this.gameOver, null, this);
+		game.physics.arcade.collide(player, cactus, this.gameOver, null, this);
 
     if (player.body.position.y > game.world.height) {
         this.gameOver(player, null);
@@ -346,7 +357,7 @@ win: function (player, lock) {
   game.state.start('win');
 },
 
-gameOver: function (player, spiky) {
+gameOver: function (player, cactus) {
 
     // Removes the player from the screen
     player.kill()

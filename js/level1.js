@@ -79,6 +79,13 @@ create: function () {
 		ledge = platforms.create(1500, 200, 'platform2');
     ledge.body.immovable = true;
 
+    // Create the locker
+    locks = game.add.group();
+    locks.enableBody = true;
+    var lock = locks.create(1920, 130, 'lock1')
+    lock.anchor.set(0, 0.3);
+    this.game.physics.enable(locks);
+    lock.body.allowGravity = false;
 
     // Player settings
     player = game.add.sprite(32, game.world.height - 300, 'chicken');
@@ -186,13 +193,6 @@ create: function () {
 	        spiky.body.gravity.y = 300;
 			}
 
-      // Create the locker
-      locks = game.add.group();
-      locks.enableBody = true;
-      var lock = locks.create(1920, 130, 'lock1')
-      lock.anchor.set(0, 0.3);
-      this.game.physics.enable(locks);
-      lock.body.allowGravity = false;
 
       // Create the key
       keys = game.add.group();
