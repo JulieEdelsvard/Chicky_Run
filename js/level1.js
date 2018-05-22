@@ -28,6 +28,8 @@ create: function () {
 		game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
 
 		game.world.setBounds(0, 0, 2000, 800);
+		game.world.checkWorldBounds = true;
+
 
     // Add background music
     music = game.add.audio('level1', 1, true);
@@ -78,23 +80,27 @@ create: function () {
 		ledge = platforms.create(1500, 200, 'platform2');
     ledge.body.immovable = true;
 
+
     // Player settings
     player = game.add.sprite(32, game.world.height - 300, 'chicken');
 
     //  Player physics
     game.physics.arcade.enable(player);
 
+    // turn off the collision with the bottom of the world
+    game.physics.arcade.checkCollision.down = false;
+
     //  Player physics properties, bounce
     player.body.bounce.y = 0.2;
     player.body.gravity.y = 300;
     player.body.collideWorldBounds = true;
-		player.body.outOfBoundsKill = true;
+  	player.body.outOfBoundsKill = true;
 
-		// turn off the player collision with the bottom of the world
-    game.physics.arcade.checkCollision.down = false;
+  	// // turn off the player collision with the bottom of the world
+    // game.physics.arcade.checkCollision.down = false;
 
     //  Walking left and right.
-    player.animations.add('left', [0, 9, 10], 10, true);
+    player.animations.add('left', [11, 6, 7], 10, true);
     player.animations.add('right', [0, 4, 5], 10, true);
 
     //  Create stars
@@ -232,6 +238,12 @@ update: function () {
 		//  Checks to see if the player collide with any of the spiky monsters, if he does call the gameOver function
 		game.physics.arcade.collide(player, spikys, this.gameOver, null, this);
 
+    if (player.body.position.y > game.world.height) {
+      console.log('working');
+        this.gameOver(player, null);
+    }
+
+
      // Collide the player and the lock
     game.physics.arcade.collide(player, platforms);
     game.physics.arcade.collide(locks, platforms);
@@ -242,7 +254,6 @@ update: function () {
     } else {
 
     }
-
 
     //  Reset the players velocity (movement)
     player.body.velocity.x = 0;
@@ -341,8 +352,10 @@ collectKey: function (player, key) {
 
 win: function (player, lock) {
 
+  // Mute the sound
   game.sound.mute = true;
 
+  // Run the level 2 state
   game.state.start('level2');
 },
 
@@ -364,9 +377,13 @@ gameOver: function (player, spiky) {
 
       }  else {
 
+        // Reset the score and lives
         lives = 3;
         score = 0;
+
+        // Mute the sound
         game.sound.mute = true;
+
         // Run the game over loadState
         game.state.start('gameOver');
       }

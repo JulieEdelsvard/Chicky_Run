@@ -24,9 +24,9 @@ var level2state = {
 
 create: function () {
 
-		game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
-
-		game.world.setBounds(0, 0, 2000, 800);
+		// game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
+    //
+		// game.world.setBounds(0, 0, 2000, 800);
 
     // Add background music
     music = game.add.audio('level2', 1, true);
@@ -54,7 +54,7 @@ create: function () {
     platforms.enableBody = true;
 
     // Create the ground.
-    var ground = platforms.create(0, game.world.height - 70, 'desertPlatform1');
+    var ground = platforms.create(0, game.world.height - 70, 'desertPlatform2');
 
     //  Scale it to fit the width of the game
     ground.scale.setTo(1, 1);
@@ -63,10 +63,10 @@ create: function () {
     ground.body.immovable = true;
 
     //  Create the ledges
-    var ledge = platforms.create(400, 550, 'platform1');
+    var ledge = platforms.create(400, 550, 'desertPlatform2');
     ledge.body.immovable = true;
 
-    ledge = platforms.create(-150, 350, 'desertPlatform1');
+    ledge = platforms.create(-150, 250, 'desertPlatform1');
     ledge.body.immovable = true;
 
 		ledge = platforms.create(500, 200, 'desertPlatform2');
@@ -75,14 +75,14 @@ create: function () {
 		ledge = platforms.create(1200, 550, 'desertPlatform3');
     ledge.body.immovable = true;
 
-		ledge = platforms.create(1400, 400, 'platform3');
+		ledge = platforms.create(1400, 400, 'desertPlatform3');
     ledge.body.immovable = true;
 
-		ledge = platforms.create(1500, 200, 'platform2');
+		ledge = platforms.create(1500, 200, 'desertPlatform2');
     ledge.body.immovable = true;
 
     // Player settings
-    player = game.add.sprite(32, game.world.height - 300, 'chicken');
+    player = game.add.sprite(0, 0, 'blueChicken');
 
     //  Player physics
     game.physics.arcade.enable(player);
@@ -97,7 +97,7 @@ create: function () {
     game.physics.arcade.checkCollision.down = false;
 
     //  Walking left and right.
-    player.animations.add('left', [0, 9, 10], 10, true);
+    player.animations.add('left', [11, 6, 7], 10, true);
     player.animations.add('right', [0, 4, 5], 10, true);
 
     //  Create stars
@@ -120,7 +120,7 @@ create: function () {
     }
 
 		// Make the world bigger (maybe tweak this when your level grows)
-		game.world.resize(6000, 600)
+		// game.world.resize(6000, 600)
 
     // Text style variable for multiple use
     textStyle = { font: '32px Arial', fill: 'white' };
@@ -140,10 +140,10 @@ create: function () {
 
     // Lives text fixed to camera
 		livesText.fixedToCamera = true;
-    livesText.cameraOffset.setTo(270, 20);
+    livesText.cameraOffset.setTo(285, 20);
 
-			//registration point for camera
-		 player.anchor.setTo(5, 1);
+			//registration point for camera ??
+		 player.anchor.setTo(4.5, 2);
 		 game.camera.follow(player, 200, 1, 1);
 
 
@@ -171,21 +171,21 @@ create: function () {
 			    style = 'STYLE_TOPDOWN_TIGHT';
 			}
 
-			// create spiky monsters
-			spikys = game.add.group();
-
-			//  Enable physics for spiky monster
-			spikys.enableBody = true;
-
-			//  create 4 evenly spaced apart
-			for (var i = 0; i < 5; i++)
-			{
-					//  Create a spiky monster inside of the 'spiky' group
-					var spiky = spikys.create(i * 600, 0, 'spiky');
-
-					// //  Spiky gravity
-	        spiky.body.gravity.y = 300;
-			}
+			// // create spiky monsters
+			// spikys = game.add.group();
+      //
+			// //  Enable physics for spiky monster
+			// spikys.enableBody = true;
+      //
+			// //  create 4 evenly spaced apart
+			// for (var i = 0; i < 5; i++)
+			// {
+			// 		//  Create a spiky monster inside of the 'spiky' group
+			// 		var spiky = spikys.create(i * 600, 0, 'spiky');
+      //
+			// 		// //  Spiky gravity
+	    //     spiky.body.gravity.y = 300;
+			// }
 
       // Create the locker
       locks = game.add.group();
@@ -226,18 +226,19 @@ update: function () {
     //  Checks to see if the player overlaps with the key, if he does call the collectKey function
     game.physics.arcade.collide(player, keys, this.collectKey, null, this);
 
-		//  Collide the player and the spiky monster
-		game.physics.arcade.collide(player, ground);
-    game.physics.arcade.collide(player, platforms);
-		game.physics.arcade.collide(spikys, ground);
-    game.physics.arcade.collide(spikys, platforms);
-
-		//  Checks to see if the player collide with any of the spiky monsters, if he does call the gameOver function
-		game.physics.arcade.collide(player, spikys, this.gameOver, null, this);
+		// //  Collide the player and the spiky monster
+		// game.physics.arcade.collide(player, ground);
+    // game.physics.arcade.collide(player, platforms);
+		// game.physics.arcade.collide(spikys, ground);
+    // game.physics.arcade.collide(spikys, platforms);
+    //
+		// //  Checks to see if the player collide with any of the spiky monsters, if he does call the gameOver function
+		// game.physics.arcade.collide(player, spikys, this.gameOver, null, this);
 
      // Collide the player and the lock
     game.physics.arcade.collide(player, platforms);
     game.physics.arcade.collide(locks, platforms);
+
 
     // Checks to see if the player collide with the lock, has the key and if he does call the win function
     if (this.hasKey && player.body.touching.down && hitPlatform) {
@@ -332,7 +333,7 @@ collectKey: function (player, key) {
     if (this.hasKey = true) {
 
       keyIcons = game.add.group();
-      var keyIcon = keyIcons.create(300, 40, 'key2');
+      var keyIcon = keyIcons.create(330, 40, 'key2');
       keyIcon.anchor.set(0, 0.5);
 
       keyIcon.fixedToCamera = true;
@@ -344,8 +345,10 @@ collectKey: function (player, key) {
 
 win: function (player, lock) {
 
+  // Mute sound
   game.sound.mute = true;
 
+  // Run the win state
   game.state.start('win');
 },
 
@@ -367,10 +370,14 @@ gameOver: function (player, spiky) {
 
       }  else {
 
+        // Reset the score and lives
         lives = 3;
         score = 0;
+
+        // Mute sound
         game.sound.mute = true;
-        // Run the game over loadState
+
+        // Run the game over state
         game.state.start('gameOver');
       }
 }
