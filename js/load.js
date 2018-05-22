@@ -2,6 +2,9 @@ var loadState = {
 
   preload: function () {
 
+      game.load.image('startGame', 'assets/startGame.png');
+      game.load.image('winGame', 'assets/gameWinner.png');
+      game.load.image('gameOver', 'assets/gameOver.png');
   		game.load.image('sky', 'assets/sky.png');
   		game.load.image('mountain', 'assets/mountain.png');
       game.load.image('desert', 'assets/desert.png');
@@ -19,7 +22,6 @@ var loadState = {
       game.load.image('cactus1', 'assets/cactus1.png');
       game.load.image('cactus2', 'assets/cactus2.png');
       game.load.image('crate', 'assets/crate.png');
-      game.load.image('stone', 'assets/stone.png');
       game.load.spritesheet('chicken', 'assets/chicken.png', 108, 115);
       game.load.spritesheet('blueChicken', 'assets/bluechicken.png', 108, 115);
       game.load.image('lock1', 'assets/lockYellow.png');

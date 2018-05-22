@@ -45,7 +45,7 @@ create: function () {
 
 		game.add.image(0, 0, 'mountain');
 
-    //  The platforms group contains the ground and the 2 ledges
+    //  The platforms group contains the ground and the ledges
     platforms = game.add.group();
 
     //  Enable physics for any object that is created in the group

@@ -29,22 +29,22 @@ create: function () {
 
 		game.world.setBounds(0, 0, 2000, 800);
 
-    // // Stop music from level 1
-    // if (music && music.stop) {
-    //   music.stop();
-    // }
-    //
-    // // Add background music and loop it
-    // music = game.add.audio('level2', 1, true);
-    // music.loop = true;
-    // music.onLoop.add(function () {
-    //   music.play();
-    // })
-    // music.play();
+    // Stop music from level 1
+    if (music && music.stop) {
+      music.stop();
+    }
+
+    // Add background music and loop it
+    music = game.add.audio('level2', 1, true);
+    music.loop = true;
+    music.onLoop.add(function () {
+      music.play();
+    })
+    music.play();
 
     var background = game.add.image(0, 0, 'desert');
 
-    //  The platforms group contains the ground and the 2 ledges
+    //  The platforms group contains the ground and the ledges
     platforms = game.add.group();
 
     //  Enable physics for any object that is created in the group
@@ -76,17 +76,16 @@ create: function () {
     ledge.body.immovable = true;
 
     // Create crates
-    crates = game.add.group();
-    crates.enableBody = true;
-    var crate = crates.create(1000, 400, 'crate');
+
+    var crate = platforms.create(1000, 400, 'crate');
     crate.body.immovable = true;
-    crate = crates.create(1300, 400, 'crate');
+    crate = platforms.create(1300, 400, 'crate');
     crate.body.immovable = true;
-    crate = crates.create(1940, 450, 'crate');
+    crate = platforms.create(1940, 500, 'crate');
     crate.body.immovable = true;
-    crate = crates.create(1830, 300, 'crate');
+    crate = platforms.create(1830, 300, 'crate');
     crate.body.immovable = true;
-    crate = crates.create(450, 350, 'crate');
+    crate = platforms.create(450, 450, 'crate');
     crate.body.immovable = true;
 
     // Create the locker
@@ -352,6 +351,9 @@ collectKey: function (player, key) {
 },
 
 win: function (player, lock) {
+
+  // Turn off music
+  game.sound.destroy();
 
   // Run the win state
   game.state.start('win');
